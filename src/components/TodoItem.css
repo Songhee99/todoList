@@ -7,7 +7,7 @@
   }
   
   .TodoItem + .TodoItem {
-    margin-top: 15px;
+    margin-top: 1.5rem;
   }
   
   .content {
@@ -29,7 +29,7 @@
   
   .content .explain {
     font-size: 1rem;
-    margin-left: -9rem;
+    margin-left: -3rem;
     flex: 1;
   }
 
