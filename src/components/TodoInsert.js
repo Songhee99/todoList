@@ -2,45 +2,64 @@ import React, { useState, useEffect } from "react";
 import { MdAddCircle } from "react-icons/md";
 import "./TodoInsert.css";
 import { TiTrash, TiPencil } from "react-icons/ti";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
-const TodoInsert = ({onInsertToggle, onInsertTodo_todo, onInsertTodo_explain, selectedTodo, onRemove, onUpdate}) => {
-  const [value_todo, setValue_todo] = useState("");
-  const [value_explain, setValue_explain] = useState("");
+const TodoInsert = ({onInsertToggle, onInsertTodo, selectedTodo, onRemove, onUpdate}) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [dated, setDated] = useState(new Date());
 
-  const onChange_todo = e => {
-    setValue_todo(e.target.value);
+  const onChange_title = e => {
+    setTitle(e.target.value);
   };
 
-  const onChange_explain = e => {
-    setValue_explain(e.target.value);
+  const onChange_content = e => {
+    setContent(e.target.value);
+  };
+
+  const onChange_date = e => {
+    setDated(e);
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    onInsertTodo_todo(value_todo);
-    onInsertTodo_explain(value_explain);
-    setValue_todo("");
-    setValue_explain("");
-    onInsertToggle();
+    console.log(dated.getMonth()+1+"/"+dated.getDate());
+    var date = dated.getMonth()+1+"/"+dated.getDate();
+    onInsertTodo(title, content
+      , date
+      );
+    setTitle("");
+    setContent("");
+    setDated(new Date())
+    onInsertToggle(); 
   };
 
   useEffect(() => {
     if (selectedTodo) {
-      setValue_todo(selectedTodo.text);
-      setValue_explain(selectedTodo.explain);
+      setTitle(selectedTodo.text);
+      setContent(selectedTodo.explain);
+      setDated(selectedTodo.date);
     }
   }, [selectedTodo]);
 
     return (
       <div>
         <div className="background" onClick={onInsertToggle}></div>
-        <form onSubmit={selectedTodo ? () => { onUpdate(selectedTodo.id, value_todo, value_explain);} : onSubmit }>
-          <input placeholder="할 일을 입력하세요" value={value_todo} onChange={onChange_todo}></input>
-          <input placeholder="설명을 입력하세요" value={value_explain} onChange={onChange_explain}></input>
+        <form onSubmit={selectedTodo ? () => { onUpdate(selectedTodo.id, title, content
+          , dated
+          );} : onSubmit }>
+          <input placeholder="할 일을 입력하세요" value={title} onChange={onChange_title}></input>
+          <input placeholder="설명을 입력하세요" value={content} onChange={onChange_content}></input><br></br>
+          <Calendar value={dated} onChange={onChange_date}></Calendar>
+          
+          
           {selectedTodo ? (
           <div className="rewrite">
             <TiPencil
-              onClick={() => { onUpdate(selectedTodo.id, value_todo, value_explain); }}
+              onClick={() => { onUpdate(selectedTodo.id, title, content
+                , dated
+                ); }}
             />
             <TiTrash onClick={() => { onRemove(selectedTodo.id); }} />
           </div>
@@ -49,7 +68,7 @@ const TodoInsert = ({onInsertToggle, onInsertTodo_todo, onInsertTodo_explain, se
             <MdAddCircle />
           </button>
         )}
-      </form>
+      </form> 
       </div>
     );
   };

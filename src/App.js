@@ -15,19 +15,22 @@ const App = () => {
       id: 1,
       text: "피자랑 치킨 먹기",
       explain: "점심 저녁 나눠서",
-      checked: true
+      checked: true,
+      date:"6/25"
     },
     {
       id: 2,
       text: "리액트 공부하기",
       explain: "투두리스트 만들기",
-      checked: true
+      checked: true,
+      date:"6/25"
     },
     {
       id: 3,
       text: "사내맞선 정주행",
       explain: "넷플릭스로 보기",
-      checked: false
+      checked: false,
+      date:"6/26"
     }
   ]);
 
@@ -38,26 +41,18 @@ const App = () => {
     setInsertToggle(prev => !prev);
   };
 
-  const onInsertTodo_todo = (text) => {
+  const onInsertTodo = (text, explain, date) => {
     if (text === "") {
       return alert("빈 칸을 채워주세요 !");
-    } else {
-      const todo = {
-        id: nextId,
-        text,
-        checked: false
-      };
-      setTodos(todos => todos.concat(todo));
     }
-  };
-
-  const onInsertTodo_explain = (explain) => {
     if (explain === "") {
       return alert("빈 칸을 채워주세요 !");
     } else {
       const todo = {
         id: nextId,
-        explain,
+        text: text,
+        explain: explain,
+        date: date,
         checked: false
       };
       setTodos(todos => todos.concat(todo));
@@ -82,9 +77,9 @@ const App = () => {
     setTodos(todos => todos.filter(todo => todo.id !== id));
   };
 
-  const onUpdate = (id, text, explain ) => {
+  const onUpdate = (id, text, explain, date ) => {
     onInsertToggle();
-    setTodos(todos => todos.map(todo => (todo.id === id ? { ...todo, text, explain } : todo))
+    setTodos(todos => todos.map(todo => (todo.id === id ? { ...todo, text, explain, date } : todo))
     );
   };
 
@@ -98,8 +93,7 @@ const App = () => {
         <TodoInsert
           selectedTodo={selectedTodo}
           onInsertToggle={onInsertToggle}
-          onInsertTodo_todo={onInsertTodo_todo}
-          onInsertTodo_explain={onInsertTodo_explain}
+          onInsertTodo={onInsertTodo}
           onRemove={onRemove}
           onUpdate={onUpdate}
         />
