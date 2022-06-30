@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import { MdAddCircle } from "react-icons/md";
 import "./TodoInsert.css";
 import { TiTrash, TiPencil } from "react-icons/ti";
-import 'react-calendar/dist/Calendar.css';
 
 const TodoInsert = ({onInsertToggle, onInsertTodo, selectedTodo, onRemove, onUpdate}) => {
   const [title, setTitle] = useState("");
@@ -30,11 +29,15 @@ const TodoInsert = ({onInsertToggle, onInsertTodo, selectedTodo, onRemove, onUpd
   const onAddTags = useCallback(
     (e) => {
       e.preventDefault();
+      if(tag === "") {
+        return alert("태그를 입력해주세요 !");
+      }
       if (tag !== "") {
         if (tags.includes(tag) === true) {
           return alert("이미 작성한 태그입니다 !");
         } else {
           setTags(tags.concat(tag));
+          setTag("");
         }
       }
     },
@@ -50,11 +53,10 @@ const TodoInsert = ({onInsertToggle, onInsertTodo, selectedTodo, onRemove, onUpd
 
   const onSubmit = e => {
     e.preventDefault();
-    onInsertTodo(title, content, dated, tag);
+    onInsertTodo(title, content, dated, tags);
     setTitle("");
     setContent("");
     setDated(new Date())
-    setTag("");
     onInsertToggle(); 
   };
 
@@ -76,13 +78,11 @@ const TodoInsert = ({onInsertToggle, onInsertTodo, selectedTodo, onRemove, onUpd
           
           <input placeholder="#태그" value={tag} onChange={onChange_tag}></input><br></br>
           <button className="addTag" onClick={onAddTags}>태그 추가</button>
-          
           {tags.map((item) => (
                 <div className="tag_item" key={item} onClick={() => onRemoveTag(item)}>{item}</div>
                 ))}
           
           <input type="date" value={dated} onChange={onChange_date}></input>
-
           {selectedTodo ? (
           <div className="rewrite">
             <TiPencil

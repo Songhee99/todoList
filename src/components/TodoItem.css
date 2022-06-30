@@ -19,14 +19,13 @@
     color:darkgreen;
   }
   .TodoItem .text {
-    margin-left: 0.5rem;
-    flex: 1;
+    margin-left: 0.6rem;
+    flex: 0.5;
   }
   
   .TodoItem .explain {
     font-size: 1rem;    
-    margin-left: 3rem;
-    flex: 1;
+    flex: 0.5;
   }
 
   .TodoItem.checked {
@@ -36,6 +35,13 @@
     opacity: 0.5;
   } 
 
-  .checklook.non-checked{
+  .isChecked.non-checked{
     display: none;
+  }
+
+  .TodoItem .tag {
+    font-size: 1rem;    
+    color:black;
+    margin-left: 3rem;
+    flex: 1;
   }
