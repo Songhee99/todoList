@@ -6,43 +6,36 @@
     font-size: 1.5rem;
   }
   
-  .TodoItem + .TodoItem {
+  .TodoItem {
     margin-top: 1.5rem;
-  }
-  
-  .content {
     cursor: pointer;
     flex: 1;
     display: flex;
     align-items: center;
   }
   
-  .content svg {
+  .TodoItem svg {
     font-size: 1.8rem;
     color:darkgreen;
   }
-  .content .text {
-    margin-left: 0.7rem;
+  .TodoItem .text {
+    margin-left: 0.5rem;
     flex: 1;
-
   }
   
-  .content .explain {
-    font-size: 1rem;
-    margin-left: -3rem;
+  .TodoItem .explain {
+    font-size: 1rem;    
+    margin-left: 3rem;
     flex: 1;
   }
 
-  .content.checked .text {
+  .TodoItem.checked {
     color:darkgreen;
     text-decoration: line-through;
     cursor: pointer;
     opacity: 0.5;
   } 
-  
-  .content.checked .explain {
-    color:darkgreen;
-    text-decoration: line-through;
-    cursor: pointer;
-    opacity: 0.4;
-  } 
+
+  .checklook.non-checked{
+    display: none;
+  }

@@ -60,3 +60,13 @@
     padding-right: 2rem;
     font-size: 1.8rem;
   }
+
+  .addTag {
+    padding: 0.5rem;
+    border-radius: 0.8rem;
+    background-color: rgb(231, 245, 204);
+    color: darkgreen;
+    font-size: 1.1rem;
+    font-weight: bold;
+    
+  }
